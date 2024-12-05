@@ -14,11 +14,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * The type Spring security config.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
 
+    /**
+     * Configure security filter chain.
+     *
+     * @param http the http
+     * @return the security filter chain
+     * @throws Exception the exception
+     */
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.httpBasic(Customizer.withDefaults());
@@ -30,11 +40,22 @@ public class SpringSecurityConfig {
         return http.build();
     }
 
+    /**
+     * User details service user details service.
+     *
+     * @param dataSource the data source
+     * @return the user details service
+     */
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
+    /**
+     * Password encoder password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
