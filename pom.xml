@@ -163,6 +163,8 @@
             <version>${jacoco-maven-plugin.version}</version>
             <configuration>
                 <excludes>
+                    <exclude>br/com/vrbeneficios/config/**</exclude>
+                    <exclude>br/com/vrbeneficios/domain/**</exclude>
                     <exclude>br/com/vrbeneficios/MiniAutorizadorApplication.class</exclude>
                 </excludes>
             </configuration>
