@@ -1,0 +1,13 @@
+server:
+  shutdown: graceful
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tagsSorter: alpha
+    operationsSorter: method
+
+spring:
+  application:
+    name: mini-autorizador
