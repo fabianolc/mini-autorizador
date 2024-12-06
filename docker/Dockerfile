@@ -4,8 +4,8 @@ FROM maven:3.9.7-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
 # Copia o arquivo pom.xml e os arquivos de dependências para o diretório de trabalho
-COPY pom.xml ./
-COPY src ./src
+COPY ../pom.xml ./
+COPY ../src ./src
 
 # Compila a aplicação
 RUN mvn package -DskipTests=true
