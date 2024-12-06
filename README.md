@@ -70,9 +70,3 @@ Deve-se entrar na pasta `docker`.
 * Docker: [https://docs.docker.com/](https://docs.docker.com/)
 * Docker Compose: [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
 * Flyway: [https://flywaydb.org/](https://flywaydb.org/)
-
-**Lembre-se de adaptar este README de acordo com as especificidades do seu projeto.**
-
-**Desenvolva aplicações incríveis com Spring Boot e Docker\!**
-
-**Gostaria de adicionar alguma seção ou informação específica?**
