@@ -2,6 +2,7 @@ package br.com.vrbeneficios.facade;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -17,7 +18,6 @@ import br.com.vrbeneficios.domain.request.MovimentoCartaoRequest;
 import br.com.vrbeneficios.service.CartaoService;
 import br.com.vrbeneficios.service.MovimentoCartaoService;
 import java.math.BigDecimal;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -106,13 +106,14 @@ class CartaoFacadeTest {
                         .senha("1234")
                         .saldo(new BigDecimal("200.00"))
                         .build());
-        Assertions.assertThrows(
-                SenhaInvalidaException.class,
-                () -> cartaoFacade.efetuarMovimento(MovimentoCartaoRequest.builder()
-                        .numeroCartao("1234123412341234")
-                        .senha("12345")
-                        .valor(new BigDecimal("100.00"))
-                        .build()));
+
+        MovimentoCartaoRequest request = MovimentoCartaoRequest.builder()
+                .numeroCartao("1234123412341234")
+                .senha("12345")
+                .valor(new BigDecimal("100.00"))
+                .build();
+
+        assertThrows(SenhaInvalidaException.class, () -> cartaoFacade.efetuarMovimento(request), "SENHA_INVALIDA");
         verify(cartaoService).findById(anyString());
         verify(movimentoCartaoService, never()).efetuarMovimentoCartao(any(MovimentoCartao.class));
         verify(movimentoCartaoService, never()).calcularSaldoCartao(anyString());
@@ -130,13 +131,15 @@ class CartaoFacadeTest {
                         .senha("1234")
                         .saldo(new BigDecimal("200.00"))
                         .build());
-        Assertions.assertThrows(
-                SaldoInsuficienteException.class,
-                () -> cartaoFacade.efetuarMovimento(MovimentoCartaoRequest.builder()
-                        .numeroCartao("1234123412341234")
-                        .senha("1234")
-                        .valor(new BigDecimal("300.00"))
-                        .build()));
+
+        MovimentoCartaoRequest request = MovimentoCartaoRequest.builder()
+                .numeroCartao("1234123412341234")
+                .senha("1234")
+                .valor(new BigDecimal("300.00"))
+                .build();
+
+        assertThrows(
+                SaldoInsuficienteException.class, () -> cartaoFacade.efetuarMovimento(request), "SALDO_INSUFICIENTE");
         verify(cartaoService).findById(anyString());
         verify(movimentoCartaoService, never()).efetuarMovimentoCartao(any(MovimentoCartao.class));
         verify(movimentoCartaoService, never()).calcularSaldoCartao(anyString());

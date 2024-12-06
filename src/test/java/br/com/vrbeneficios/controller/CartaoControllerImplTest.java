@@ -1,5 +1,7 @@
 package br.com.vrbeneficios.controller;
 
+import static br.com.vrbeneficios.contants.PathConstants.CARTOES_NUMERO_PATH;
+import static br.com.vrbeneficios.contants.PathConstants.CARTOES_PATH;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.TEXT_PLAIN;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -8,7 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import br.com.vrbeneficios.contants.PathConstants;
 import br.com.vrbeneficios.domain.dto.CartaoDto;
 import br.com.vrbeneficios.domain.request.CartaoRequest;
 import br.com.vrbeneficios.facade.CartaoFacade;
@@ -104,7 +105,7 @@ class CartaoControllerImplTest {
      */
     @Test
     void cadastrarCartaoTeste_Sucesso() throws Exception {
-        mockMvc.perform(post(PathConstants.CARTOES_PATH)
+        mockMvc.perform(post("/" + CARTOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new CartaoRequest("1234987612349876", "1234"))))
@@ -121,7 +122,7 @@ class CartaoControllerImplTest {
      */
     @Test
     void cadastrarCartaoTeste_JaExiste() throws Exception {
-        mockMvc.perform(post(PathConstants.CARTOES_PATH)
+        mockMvc.perform(post("/" + CARTOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new CartaoRequest("1234123412341234", "1234"))))
@@ -138,8 +139,7 @@ class CartaoControllerImplTest {
      */
     @Test
     void obterSaldoCartaoTeste_Sucesso() throws Exception {
-        mockMvc.perform(get(PathConstants.CARTOES_NUMERO_PATH, "1234123412341234")
-                        .with(httpBasic("username", "password")))
+        mockMvc.perform(get("/" + CARTOES_NUMERO_PATH, "1234123412341234").with(httpBasic("username", "password")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TEXT_PLAIN + ";charset=UTF-8"))
                 .andExpect(MockMvcResultMatchers.content().string("500.00"));
@@ -152,8 +152,7 @@ class CartaoControllerImplTest {
      */
     @Test
     void obterSaldoCartaoTeste_NotFound() throws Exception {
-        mockMvc.perform(get(PathConstants.CARTOES_NUMERO_PATH, "1234123412346666")
-                        .with(httpBasic("username", "password")))
+        mockMvc.perform(get("/" + CARTOES_NUMERO_PATH, "1234123412346666").with(httpBasic("username", "password")))
                 .andExpect(status().isNotFound());
     }
 }

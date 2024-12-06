@@ -5,6 +5,7 @@ import br.com.vrbeneficios.domain.exception.NotFoundException;
 import br.com.vrbeneficios.domain.exception.RegistroExistenteException;
 import br.com.vrbeneficios.domain.exception.SaldoInsuficienteException;
 import br.com.vrbeneficios.domain.exception.SenhaInvalidaException;
+import br.com.vrbeneficios.domain.response.CartaoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +24,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(RegistroExistenteException.class)
-    public ResponseEntity<Object> registroExistenteExceptionHandle(RegistroExistenteException exception) {
+    public ResponseEntity<CartaoResponse> registroExistenteExceptionHandle(RegistroExistenteException exception) {
         return ResponseEntity.unprocessableEntity().body(exception.getCartaoResponse());
     }
 

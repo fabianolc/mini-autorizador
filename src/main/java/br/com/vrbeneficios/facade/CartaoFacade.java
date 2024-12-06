@@ -2,7 +2,6 @@ package br.com.vrbeneficios.facade;
 
 import static br.com.vrbeneficios.domain.enums.TipoMovimentoEnum.CREDITO;
 import static br.com.vrbeneficios.domain.enums.TipoMovimentoEnum.DEBITO;
-import static java.util.Optional.of;
 
 import br.com.vrbeneficios.domain.dto.CartaoDto;
 import br.com.vrbeneficios.domain.entity.Cartao;
@@ -14,6 +13,7 @@ import br.com.vrbeneficios.service.CartaoService;
 import br.com.vrbeneficios.service.MovimentoCartaoService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -80,14 +80,18 @@ public class CartaoFacade {
     }
 
     private void validaSenha(Cartao cartao, MovimentoCartaoRequest movimentoCartaoRequest) {
-        of(cartao)
-                .filter(c -> c.getSenha().equalsIgnoreCase(movimentoCartaoRequest.senha()))
-                .orElseThrow(SenhaInvalidaException::new);
+        Optional.of(cartao.getSenha())
+                .filter(senha -> !senha.equalsIgnoreCase(movimentoCartaoRequest.senha()))
+                .ifPresent(senha -> {
+                    throw new SenhaInvalidaException();
+                });
     }
 
     private void validaSaldoDisponivel(Cartao cartao, MovimentoCartaoRequest movimentoCartaoRequest) {
-        of(cartao)
-                .filter(c -> c.getSaldo().compareTo(movimentoCartaoRequest.valor()) >= 0)
-                .orElseThrow(SaldoInsuficienteException::new);
+        Optional.of(cartao.getSaldo())
+                .filter(saldo -> saldo.compareTo(movimentoCartaoRequest.valor()) < 0)
+                .ifPresent(bigDecimal -> {
+                    throw new SaldoInsuficienteException();
+                });
     }
 }

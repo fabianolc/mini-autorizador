@@ -10,7 +10,7 @@ public class PathConstants {
     /**
      * The constant CARTOES_PATH.
      */
-    public static final String CARTOES_PATH = "/cartoes";
+    public static final String CARTOES_PATH = "cartoes";
     /**
      * The constant CARTOES_NUMERO_PATH.
      */
@@ -19,5 +19,5 @@ public class PathConstants {
     /**
      * The constant TRANSACOES_PATH.
      */
-    public static final String TRANSACOES_PATH = "/transacoes";
+    public static final String TRANSACOES_PATH = "transacoes";
 }

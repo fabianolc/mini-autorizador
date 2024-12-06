@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class RegistroExistenteException extends RuntimeException {
 
-    private final CartaoResponse cartaoResponse;
+    private final transient CartaoResponse cartaoResponse;
 
     /**
      * Instantiates a new Registro existente exception.

@@ -1,5 +1,6 @@
 package br.com.vrbeneficios.controller;
 
+import static br.com.vrbeneficios.contants.PathConstants.TRANSACOES_PATH;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.TEXT_PLAIN;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -7,7 +8,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import br.com.vrbeneficios.contants.PathConstants;
 import br.com.vrbeneficios.domain.dto.CartaoDto;
 import br.com.vrbeneficios.domain.request.MovimentoCartaoRequest;
 import br.com.vrbeneficios.facade.CartaoFacade;
@@ -103,7 +103,7 @@ class MovimentoCartaoControllerImplTest {
      */
     @Test
     void efetuarTransacaoTeste_Sucesso() throws Exception {
-        mockMvc.perform(post(PathConstants.TRANSACOES_PATH)
+        mockMvc.perform(post("/" + TRANSACOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
@@ -118,7 +118,7 @@ class MovimentoCartaoControllerImplTest {
      */
     @Test
     void efetuarTransacaoTeste_CartaoInexistente() throws Exception {
-        mockMvc.perform(post(PathConstants.TRANSACOES_PATH)
+        mockMvc.perform(post("/" + TRANSACOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
@@ -135,7 +135,7 @@ class MovimentoCartaoControllerImplTest {
      */
     @Test
     void efetuarTransacaoTeste_SenhaIncorreta() throws Exception {
-        mockMvc.perform(post(PathConstants.TRANSACOES_PATH)
+        mockMvc.perform(post("/" + TRANSACOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
@@ -152,7 +152,7 @@ class MovimentoCartaoControllerImplTest {
      */
     @Test
     void efetuarTransacaoTeste_SaldoInsuficiente() throws Exception {
-        mockMvc.perform(post(PathConstants.TRANSACOES_PATH)
+        mockMvc.perform(post("/" + TRANSACOES_PATH)
                         .with(httpBasic("username", "password"))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
