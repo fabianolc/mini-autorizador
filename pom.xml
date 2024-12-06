@@ -162,6 +162,7 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>${jacoco-maven-plugin.version}</version>
             <configuration>
+                <formats>HTML,XML,CSV</formats>
                 <excludes>
                     <exclude>br/com/vrbeneficios/config/**</exclude>
                     <exclude>br/com/vrbeneficios/domain/**</exclude>
