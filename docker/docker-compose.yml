@@ -1,8 +1,8 @@
 services:
   mysqldb:
     image: mysql:latest
-    hostname: mysql
-    container_name: mysql
+    hostname: mysqldb
+    container_name: mysqldb
     restart: always
     ports:
       - "3306:3306"
@@ -23,7 +23,7 @@ services:
   mini-autorizador:
     build:
       context: ..
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
